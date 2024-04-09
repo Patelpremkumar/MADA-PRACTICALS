@@ -1,0 +1,201 @@
+package com.example.twoactivities;
+ import android.content.Intent; import android.util.Log; import android.view.View;
+ import
+ android.widget.EditText;
+ import
+ androidx.appcompat.app.AppCompatActivity; import android.os.Bundle; import
+ static androidx.core.content.PackageManagerCompat.LOG_TAG;
+ public class MainActivity extends AppCompatActivity { private
+ EditText mMessageEditText; public static final String
+ EXTRA_MESSAGE=
+ "com.example.android.TwoActivities.extra.MESSAGE"; Intent intent;
+ private static final String LOG_TAG =
+ MainActivity.class.getSimpleName();
+ @Override protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ setContentView(R.layout.activity_main);
+ mMessageEditText = findViewById(R.id.editText_main); }
+ public void launchSecondActivity(View view) {
+ Log.d(LOG_TAG, "Button clicked!");
+ Intent intent = new Intent(getApplicationContext(),
+ 18|
+ Pa g e
+SecondActivity.class);
+ String
+ message
+ =
+ mMessageEditText.getText().toString();
+ intent.putExtra(EXTRA_MESSAGE, message); startActivity(intent);
+ }
+ } 
+activity_main.xml (xml file):
+<?xml version="1.0" encoding="utf-8"?>
+ <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.
+ android.com/apk/res/android"
+ xmlns:tools="http://schemas.android.com/tools"
+ xmlns:app="http://schemas.android.com/apk/res-auto"
+ android:background="@drawable/andrmoun2"
+ android:layout_width="match_parent"
+ android:layout_height="match_parent" tools:context=".MainActivity"
+ >
+ <Button
+ android:text="Send"
+ android:layout_width="wrap_content"
+ android:layout_height="wrap_content"
+ android:id="@+id/button_main"
+ android:onClick="launchSecondActivity"
+ app:layout_constraintEnd_toEndOf="parent"
+ app:layout_constraintTop_toTopOf="parent"
+ app:layout_constraintBottom_toBottomOf="parent"
+ app:layout_constraintVertical_bias="0.957"
+ app:layout_constraintStart_toEndOf="@+id/editText_main"/>
+ <EditText
+ android:layout_width="230dp"
+ android:layout_height="51dp"
+ android:inputType="textLongMessage"
+ 19|
+ Pa g e
+android:ems="10"
+ android:id="@+id/editText_main"
+ android:background="@drawable/edit_text2"
+ app:layout_constraintStart_toStartOf="parent
+ "
+ app:layout_constraintHorizontal_bias="0.192
+ "
+ app:layout_constraintEnd_toEndOf="parent"
+ app:layout_constraintTop_toTopOf="parent"
+ app:layout_constraintBottom_toBottomOf="
+ parent"
+ app:layout_constraintVertical_bias="0.951"
+ android:textColor="#F6F3F3"
+ android:gravity="center"
+ android:textSize="16sp"
+ android:e lipsize="middle"
+ android:hint="Enter your message"/>
+ </androidx.constraintlayout.widget.ConstraintLayout> 
+SecondActivity.java(Java File):
+package com.example.twoactivities;
+ import android.content.Intent; import android.view.View;
+ import
+ android.widget.EditText;
+ android.widget.TextView;
+ import
+ import
+ androidx.appcompat.app.AppCompatActivity; import android.
+ os.Bundle;
+ public class SecondActivity extends AppCompatActivity { public static final
+ String EXTRA_REPLY =
+ "com.example.android.TwoActivities.extra.REPLY"; private EditText
+ mReply;
+ @Override protected void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ 20|
+ Pa g e
+setContentView(R.layout.activity_second);
+ Intent intent = getIntent();
+ String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+ TextView
+ textView
+ textView.setText(message);
+ =
+ findViewById(R.id.editText_second);
+ }
+ public void returnReply(View view) {
+ findViewById(R.id.text_message);
+ mReply
+ String reply = mReply.getText().toString(); Intent
+ replyIntent
+ =
+ new
+ replyIntent.putExtra(EXTRA_REPLY,
+ setResult(RESULT_OK,replyIntent); finish();
+ } } 
+activity_second.xml:
+<?xml version="1.0" encoding="utf-8"?>
+ Intent();
+ reply);
+ =
+ <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.
+ android.com/apk/res/android"
+ xmlns:tools="http://schemas.android.com/tools"
+ xmlns:app="http://schemas.android.com/apk/res-auto"
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:background="@drawable/andrmoun2"
+ tools:context=".SecondActivity">
+ <TextView
+ android:text="Message
+ android:layout_height="50dp"
+ Received"
+ android:layout_width="257dp"
+ android:id="@+id/text_header"
+ android:textStyle="bold"
+ android:background="@drawable/edit_text_background"
+ android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+ 21|
+ Pa g e
+app:layout_constraintStart_toStartOf="parent"
+ app:layout_constraintHorizontal_bias="0.159"
+ app:layout_constraintEnd_toEndOf="parent"
+ app:layout_constraintTop_toTopOf="parent"
+ app:layout_constraintBottom_toBottomOf="parent"
+ app:layout_constraintVertical_bias="0.053"
+ android:textSize="20sp"
+ android:textColor="#FDFAFA" android:gravity="center"/>
+ <TextView android:layout_width="237dp" android:layout_height="118dp"
+ android:id="@+id/text_message"
+ android:background="@drawable/edit_text_background"
+ app:layout_constraintStart_toStartOf="parent"
+ app:layout_constraintHorizontal_bias="0.143"
+ app:layout_constraintEnd_toEndOf="parent"
+ app:layout_constraintTop_toTopOf="parent"
+ app:layout_constraintBottom_toBottomOf="parent"
+ app:layout_constraintVertical_bias="0.161"
+ android:textAppearance="@style/TextAppearance.AppCompat.Medium" android:
+ textColor="#F8F5F5"
+ android:autoText="false"
+ android:gravity="center"/>
+ <Button android:text=
+ android:textSize="20sp"
+ "@string/button_second"
+ android:layout_width="wrap_content" android:layout_height="wrap_content"
+ android:id="@+id/button_second"
+ android:onClick="returnReply"
+ app:layout_constraintEnd_toEndOf="parent"
+ app:layout_constraintTop_toTopOf="parent"
+ app:layout_constraintBottom_toBottomOf="parent"
+ app:layout_constraintVertical_bias="0.957"
+ app:layout_constraintStart_toEndOf="@+id/editText_second"/>
+ <EditText
+ android:layout_width="234dp"
+ android:layout_height="48dp"
+ 22|
+ Pa g e
+android:inputType="textLongMessag
+ e"
+ android:ems="10"
+ android:id="@+id/editText_second"
+ android:background="@drawable/edi
+ t_text2"
+ app:layout_constraintStart_toStartOf
+ ="parent"
+ app:layout_constraintHorizontal_bias
+ ="0.192"
+ app:layout_constraintEnd_toEndOf="
+ parent"
+ app:layout_constraintTop_toTopOf="
+ parent"
+ app:layout_constraintBottom_toBott
+ omOf="parent"
+ app:layout_constraintVertical_bias="
+ 0.951" android:hint=
+ "@string/editText_second"
+ android:textColor="#F8F7F7"
+ android:includeFontPadding="false"
+ android:ellipsize="middle" android:gravity="center"></EditText>
+ </androidx.constraintlayout.widget.ConstraintLayout>
+ Strings.xml:
+<resources>
+ <string name="app_name">TwoActivities</string>
+ <string name="button_second">Reply</string>
+ <string name="editText_second">Enter Your Reply</string> </resources>
